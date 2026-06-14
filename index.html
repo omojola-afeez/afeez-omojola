@@ -1204,6 +1204,51 @@ if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){
 }
 
 })();
+
+// CONTACT FORM
+(function(){
+  var btn  = document.getElementById('sendBtn');
+  var name = document.getElementById('fName');
+  var subj = document.getElementById('fSubject');
+  var msg  = document.getElementById('fMessage');
+
+  function mark(el, err){
+    el.style.borderColor = err ? '#e05a5a' : '';
+    el.style.boxShadow   = err ? '0 0 0 3px rgba(224,90,90,0.15)' : '';
+  }
+  function clear(){ [name,subj,msg].forEach(function(el){ mark(el,false); }); }
+
+  if(!btn) return;
+
+  btn.addEventListener('click', function(){
+    clear();
+    var n = name.value.trim();
+    var s = subj.value.trim();
+    var m = msg.value.trim();
+    var ok = true;
+    if(!n){ mark(name,true); ok=false; }
+    if(!s){ mark(subj,true); ok=false; }
+    if(!m){ mark(msg, true); ok=false; }
+    if(!ok){ (!n?name:!s?subj:msg).focus(); return; }
+
+    window.location.href =
+      'mailto:abdulafeezomojola@gmail.com'
+      + '?subject=' + encodeURIComponent(s)
+      + '&body='    + encodeURIComponent('From: ' + n + '\n\n' + m);
+
+    btn.textContent = 'Opening your email app...';
+    btn.style.opacity = '0.65';
+    setTimeout(function(){
+      btn.textContent = 'Send message';
+      btn.style.opacity = '';
+      name.value = ''; subj.value = ''; msg.value = '';
+    }, 2800);
+  });
+
+  [name,subj,msg].forEach(function(el){
+    el.addEventListener('input', function(){ mark(el,false); });
+  });
+})();
 </script>
 </body>
 </html>
