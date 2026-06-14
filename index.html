@@ -10,22 +10,22 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#080808;
-  --bg2:#0e0e0e;
-  --bg3:#141414;
-  --line:rgba(255,255,255,0.08);
-  --line2:rgba(255,255,255,0.14);
+  --bg:#111418;
+  --bg2:#181c22;
+  --bg3:#1e232b;
+  --line:rgba(255,255,255,0.11);
+  --line2:rgba(255,255,255,0.18);
   --text:#ede9e3;
-  --text2:#7a7672;
-  --text3:#3e3c3a;
+  --text2:#9a9690;
+  --text3:#5a5854;
   --gold:#c9a96e;
   --gold-light:#e8d5a8;
-  --gold2:rgba(201,169,110,0.12);
-  --gold3:rgba(201,169,110,0.06);
+  --gold2:rgba(201,169,110,0.18);
+  --gold3:rgba(201,169,110,0.1);
 }
 html{scroll-behavior:smooth}
 body{
-  background:var(--bg);color:var(--text);
+  background:linear-gradient(160deg,#161b22 0%,#111418 40%,#13181f 100%);color:var(--text);
   font-family:'DM Sans',sans-serif;font-size:16px;
   line-height:1.6;font-weight:300;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
@@ -51,7 +51,7 @@ a{color:inherit;text-decoration:none}
 /* PARTICLE CANVAS */
 #particle-canvas{
   position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;opacity:0.5;
+  pointer-events:none;z-index:0;opacity:0.75;
 }
 
 /* NAV */
@@ -63,7 +63,7 @@ nav{
   border-bottom:1px solid transparent;
 }
 nav.scrolled{
-  background:rgba(8,8,8,0.88);
+  background:rgba(17,20,24,0.92);
   backdrop-filter:blur(20px);
   border-color:var(--line);
   height:56px;
@@ -104,6 +104,7 @@ nav.scrolled{
 
 /* SECTIONS */
 .section{padding:6rem 0;border-bottom:1px solid var(--line);position:relative}
+.section:nth-of-type(even){background:rgba(255,255,255,0.018)}
 .section-eyebrow{
   font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
   color:var(--gold);margin-bottom:1.2rem;font-weight:400;
@@ -195,6 +196,7 @@ nav.scrolled{
 .stat-box{
   padding:2rem;border-right:1px solid var(--line);
   border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,0.02);
 }
 .stat-box:nth-child(2){border-right:none}
 .stat-box:nth-child(3){border-bottom:none}
@@ -243,7 +245,7 @@ nav.scrolled{
 }
 .skill-col{
   border-right:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:2rem 1.75rem;
+  padding:2rem 1.75rem;background:rgba(255,255,255,0.015);
 }
 .skill-col-label{
   font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
@@ -266,6 +268,7 @@ nav.scrolled{
 .project-card{
   border-right:1px solid var(--line);border-bottom:1px solid var(--line);
   padding:2.5rem;transition:background 0.3s;position:relative;overflow:hidden;
+  background:rgba(255,255,255,0.012);
 }
 .project-card::before{
   content:'';position:absolute;inset:0;opacity:0;
@@ -454,6 +457,66 @@ footer{padding:2.5rem 0}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
 }
+
+/* AMBIENT GLOWS */
+.glow-hero{position:absolute;top:10%;left:30%;width:600px;height:600px;
+  background:radial-gradient(circle,rgba(201,169,110,0.13) 0%,transparent 70%);
+  pointer-events:none;z-index:0;filter:blur(40px);}
+.glow-mid{position:absolute;top:50%;left:10%;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(201,169,110,0.10) 0%,transparent 70%);
+  pointer-events:none;z-index:0;filter:blur(60px);}
+.glow-right{position:absolute;top:20%;right:5%;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 70%);
+  pointer-events:none;z-index:0;filter:blur(50px);}
+
+/* 3D GLASS BROWSER */
+.glass-wrap{
+  perspective:1000px;
+  cursor:pointer;
+}
+.glass-card{
+  position:relative;border-radius:10px;overflow:hidden;
+  border:1px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.03);
+  backdrop-filter:blur(12px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);
+  transform-style:preserve-3d;
+  transition:transform 0.1s ease,box-shadow 0.3s ease;
+}
+.glass-card:hover{
+  box-shadow:0 20px 60px rgba(0,0,0,0.7),0 0 40px rgba(201,169,110,0.08),inset 0 1px 0 rgba(255,255,255,0.15);
+}
+.glass-topbar{
+  display:flex;align-items:center;gap:6px;
+  padding:10px 14px;
+  background:rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.glass-dot{width:9px;height:9px;border-radius:50%;opacity:0.7}
+.glass-dot.r{background:#ff5f57}.glass-dot.y{background:#ffbd2e}.glass-dot.g{background:#28c840}
+.glass-url{
+  flex:1;margin-left:10px;font-size:11px;color:rgba(255,255,255,0.3);
+  font-family:monospace;letter-spacing:0.02em;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.glass-screen{
+  width:100%;height:200px;overflow:hidden;position:relative;
+  background:var(--bg3);
+}
+.glass-screen iframe{
+  width:200%;height:200%;
+  transform:scale(0.5);transform-origin:top left;
+  border:none;pointer-events:none;
+}
+.glass-shine{
+  position:absolute;top:0;left:0;right:0;height:50%;
+  background:linear-gradient(180deg,rgba(255,255,255,0.04) 0%,transparent 100%);
+  pointer-events:none;z-index:2;border-radius:10px 10px 0 0;
+}
+.glass-reflection{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.06) 0%,transparent 50%,rgba(201,169,110,0.03) 100%);
+  pointer-events:none;z-index:3;
+}
 </style>
 </head>
 <body>
@@ -476,6 +539,8 @@ footer{padding:2.5rem 0}
 
 <!-- HERO -->
 <section id="hero">
+  <div class="glow-hero"></div>
+  <div class="glow-right"></div>
   <div class="container">
     <div class="hero-inner">
       <div class="hero-left">
@@ -625,6 +690,7 @@ footer{padding:2.5rem 0}
 
 <!-- PROJECTS -->
 <section id="projects" class="section">
+  <div class="glow-mid"></div>
   <div class="container">
     <span class="bg-number">03</span>
     <div class="section-eyebrow reveal">Projects</div>
@@ -663,12 +729,23 @@ footer{padding:2.5rem 0}
               <span class="stack-chip">Node.js</span>
               <span class="stack-chip">Vercel</span>
             </div>
-            <a href="https://resolve-desk-two.vercel.app/" target="_blank" class="project-link">Live site ↗</a>
+            <a href="https://resolve-dezk.vercel.app/" target="_blank" class="project-link">Live site ↗</a>
           </div>
         </div>
-        <div class="featured-preview">
-          <div class="preview-dots"></div>
-          <span class="preview-badge">Live on Vercel</span>
+        <div class="glass-wrap" id="glassWrap0">
+          <div class="glass-card" id="glassCard0">
+            <div class="glass-topbar">
+              <span class="glass-dot r"></span>
+              <span class="glass-dot y"></span>
+              <span class="glass-dot g"></span>
+              <span class="glass-url">resolve-dezk.vercel.app</span>
+            </div>
+            <div class="glass-screen">
+              <iframe src="https://resolve-dezk.vercel.app/" loading="lazy" title="ResolveDesk preview"></iframe>
+            </div>
+            <div class="glass-shine"></div>
+            <div class="glass-reflection"></div>
+          </div>
         </div>
       </div>
 
@@ -685,6 +762,7 @@ footer{padding:2.5rem 0}
           </div>
           <a href="https://safepass-dashboard-three.vercel.app/auth" target="_blank" class="project-link">Live ↗</a>
         </div>
+        <div class="glass-wrap project-glass" id="glassWrap1"><div class="glass-card" id="glassCard1"><div class="glass-topbar"><span class="glass-dot r"></span><span class="glass-dot y"></span><span class="glass-dot g"></span><span class="glass-url">safepass-dashboard-three.vercel.app</span></div><div class="glass-screen"><iframe src="https://safepass-dashboard-three.vercel.app/auth" loading="lazy" title="SafePass preview"></iframe></div><div class="glass-shine"></div><div class="glass-reflection"></div></div></div>
       </div>
 
       <div class="project-card reveal">
@@ -700,6 +778,7 @@ footer{padding:2.5rem 0}
           </div>
           <a href="https://adey-three.vercel.app" target="_blank" class="project-link">Live ↗</a>
         </div>
+        <div class="glass-wrap project-glass" id="glassWrap2"><div class="glass-card" id="glassCard2"><div class="glass-topbar"><span class="glass-dot r"></span><span class="glass-dot y"></span><span class="glass-dot g"></span><span class="glass-url">adey-three.vercel.app</span></div><div class="glass-screen"><iframe src="https://adey-three.vercel.app" loading="lazy" title="ADEY preview"></iframe></div><div class="glass-shine"></div><div class="glass-reflection"></div></div></div>
       </div>
 
       <div class="project-card reveal">
@@ -714,6 +793,7 @@ footer{padding:2.5rem 0}
           </div>
           <a href="https://ori-maison.vercel.app/" target="_blank" class="project-link">Live ↗</a>
         </div>
+        <div class="glass-wrap project-glass" id="glassWrap3"><div class="glass-card" id="glassCard3"><div class="glass-topbar"><span class="glass-dot r"></span><span class="glass-dot y"></span><span class="glass-dot g"></span><span class="glass-url">ori-maison.vercel.app</span></div><div class="glass-screen"><iframe src="https://ori-maison.vercel.app/" loading="lazy" title="Ori Maison preview"></iframe></div><div class="glass-shine"></div><div class="glass-reflection"></div></div></div>
       </div>
 
       <div class="project-card reveal">
@@ -728,6 +808,7 @@ footer{padding:2.5rem 0}
           </div>
           <a href="https://bunny-care-taupe.vercel.app/" target="_blank" class="project-link">Live ↗</a>
         </div>
+        <div class="glass-wrap project-glass" id="glassWrap4"><div class="glass-card" id="glassCard4"><div class="glass-topbar"><span class="glass-dot r"></span><span class="glass-dot y"></span><span class="glass-dot g"></span><span class="glass-url">bunny-care-taupe.vercel.app</span></div><div class="glass-screen"><iframe src="https://bunny-care-taupe.vercel.app/" loading="lazy" title="BunnyCare preview"></iframe></div><div class="glass-shine"></div><div class="glass-reflection"></div></div></div>
       </div>
 
       <div class="project-card reveal">
@@ -742,6 +823,7 @@ footer{padding:2.5rem 0}
           </div>
           <a href="https://ngo-iya-onome.vercel.app/" target="_blank" class="project-link">Live ↗</a>
         </div>
+        <div class="glass-wrap project-glass" id="glassWrap5"><div class="glass-card" id="glassCard5"><div class="glass-topbar"><span class="glass-dot r"></span><span class="glass-dot y"></span><span class="glass-dot g"></span><span class="glass-url">ngo-iya-onome.vercel.app</span></div><div class="glass-screen"><iframe src="https://ngo-iya-onome.vercel.app/" loading="lazy" title="Felicia Ominike Foundation preview"></iframe></div><div class="glass-shine"></div><div class="glass-reflection"></div></div></div>
       </div>
     </div>
   </div>
@@ -868,21 +950,19 @@ footer{padding:2.5rem 0}
       <div class="contact-form reveal">
         <div class="form-title">Send a message</div>
         <div class="form-subtitle">Tell me what you're working on.</div>
-        <form action="mailto:abdulafeezomojola@gmail.com" method="get" enctype="text/plain">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" name="from" placeholder="Your name">
-          </div>
-          <div class="form-group">
-            <label>Subject</label>
-            <input type="text" name="subject" placeholder="What's this about?">
-          </div>
-          <div class="form-group">
-            <label>Message</label>
-            <textarea name="body" rows="5" placeholder="Tell me more..."></textarea>
-          </div>
-          <button type="submit" class="form-btn">Send message</button>
-        </form>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="fName" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" id="fSubject" placeholder="What's this about?">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea id="fMessage" rows="5" placeholder="Tell me more..."></textarea>
+        </div>
+        <button class="form-btn" id="sendBtn">Send message</button>
       </div>
     </div>
   </div>
